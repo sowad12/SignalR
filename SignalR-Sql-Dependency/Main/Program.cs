@@ -3,6 +3,7 @@ using Main.Extensions;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Main.Manager;
+using Main.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddDatabaseContextService(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDependency(builder.Configuration);
+
 
 //builder.Services.AddTransient<ISystemManager, SystemManager>();
 var app = builder.Build();
@@ -39,4 +41,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapHub<DashboardHub>("/dashboardHub");
 app.Run();

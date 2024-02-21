@@ -16,6 +16,7 @@ namespace Main.Extensions
         {
             try
             {
+                services.AddSignalR();
                 //versioning dependency
                 var apiVersioningBuilder = services.AddApiVersioning(o =>
                 {
