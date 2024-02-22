@@ -2,10 +2,11 @@
 using Library.Infrastructer.Implementation;
 using Library.Infrastructer.Interface;
 using Library.Infrastructer.Options;
-using Main.Manager;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Main.Manager.Interface;
+using Main.Manager.Implementation;
 
 namespace Main.Extensions
 {
@@ -35,6 +36,7 @@ namespace Main.Extensions
                 .Session);
 
                 services.AddScoped<ISystemManager, SystemManager>();
+                services.AddScoped<IProductManager, ProductManager>();
             }
             catch (Exception ex)
             {

@@ -25,6 +25,7 @@
 	
 	<ItemGroup>
 		<Folder Include="Models\Entites\" />
+		<Folder Include="wwwroot\js\Dashboard\" />
 	</ItemGroup>
 		<ItemGroup>
 		<ProjectReference Include="..\Library\Library.csproj" />

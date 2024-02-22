@@ -35,6 +35,6 @@ namespace Library.Context
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Human> Human { get; set; }
+    
     }
 }

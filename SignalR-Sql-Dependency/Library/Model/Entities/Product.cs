@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace Library.Model.Entities
 {
-    [Table(nameof(Human))]
-    public class Human:BaseEntity
+    [Table(nameof(Product))]
+    public class Product : BaseEntity
     {
-        public string Name { get; set; }    
-        public int Age { get; set; }
+        public string Name { get; set; }
+        public string Category { get; set; }
+        public decimal Price { get; set; }
     }
 }

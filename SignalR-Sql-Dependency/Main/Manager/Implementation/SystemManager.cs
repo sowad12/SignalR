@@ -7,29 +7,30 @@ using Main.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Reflection;
+using Main.Manager.Interface;
 
-namespace Main.Manager
+namespace Main.Manager.Implementation
 {
     public class SystemManager : ISystemManager
     {
-       
+
         private ApplicationDbContext _dbContext;
-    
+
         private readonly IDapperContext _dapper;
         private readonly AppOptions _appOptions;
-        public SystemManager(ApplicationDbContext dbContext,IDapperContext dapper,IOptions<AppOptions> appOptions)
+        public SystemManager(ApplicationDbContext dbContext, IDapperContext dapper, IOptions<AppOptions> appOptions)
         {
-            _dbContext = dbContext;         
+            _dbContext = dbContext;
             _dapper = dapper;
             _appOptions = appOptions.Value;
         }
-       
+
         public async Task<dynamic> StoredProcedure()
         {
-            
+
             var executionResult = string.Empty;
             var assembly = Assembly.GetExecutingAssembly();
-           var rs = assembly.GetManifestResourceNames();
+            var rs = assembly.GetManifestResourceNames();
             var sqlFiles = assembly.GetManifestResourceNames().
                         Where(file => file.EndsWith(".sql"));
             foreach (var sqlFile in sqlFiles)
