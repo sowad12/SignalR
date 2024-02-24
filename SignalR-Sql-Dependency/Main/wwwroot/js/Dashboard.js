@@ -1,31 +1,39 @@
 "use strict";
+
+//var connection = new signalR.HubConnectionBuilder()
+//    .withUrl("/dashboardHub", {
+//        skipNegotiation: true,
+//        transport: signalR.HttpTransportType.WebSockets
+//    })
+//    .withAutomaticReconnect()
+//    .build();
+
 var connection = new signalR.HubConnectionBuilder().withUrl("/dashboardHub").build();
-//signalR Connection start
 
 $(function () {
-    console.log("hello");
     connection.start().then(function () {
-        console.log('Connected to dashboardHub');
-        InvokeProducts();
-        //InvokeSales();
-        //InvokeCustomers();
-
+        console.log('Connected to importHub');
     }).catch(function (err) {
         return console.error(err.toString());
     });
 });
 
-//send backend hub request
-function InvokeProducts() {
-    connection.invoke("SendProducts").catch(function (err) {
-        return console.error(err.toString());
-    });
+
+// Send backend hub request
+function invokeProducts() {
+    console.log("Send");
+    connection.invoke("SendProducts")
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
 }
+
 connection.on("ReceiveProducts", function (products) {
-    BindProductsToGrid(products);
+    console.log("Received", products);
+    bindProductsToGrid(products);
 });
 
-function BindProductsToGrid(products) {
+function bindProductsToGrid(products) {
     $('#tblProduct tbody').empty();
 
     var tr;

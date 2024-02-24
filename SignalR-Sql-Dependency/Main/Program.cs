@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Main.Manager;
 using Main.Hubs;
+using Main.SqlTableDependency;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +18,11 @@ builder.Services.AddDatabaseContextService(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDependency(builder.Configuration);
 
+//builder.Services.AddSingleton<ProductTable>();
 
 //builder.Services.AddTransient<ISystemManager, SystemManager>();
 var app = builder.Build();
-
+//var connectionString = app.Configuration.GetConnectionString("DefaultConnection");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -32,14 +34,20 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
+//app.UseSession();
+app.UseCors("AllowAll");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Dashboard}/{action=Index}/{id?}");
+app.UseWebSockets();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<DashboardHub>("/dashboardHub");
+});
+app.UseSqlTableDependency();
 
-app.MapHub<DashboardHub>("/dashboardHub");
+//app.MapHub<DashboardHub>("/dashboardHub");
 app.Run();

@@ -8,7 +8,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.1.28" />
+		<PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.4.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.1.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="8.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.27">
 			<PrivateAssets>all</PrivateAssets>
@@ -16,6 +19,7 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+		<PackageReference Include="SqlTableDependency" Version="8.5.8" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -25,7 +29,7 @@
 	
 	<ItemGroup>
 		<Folder Include="Models\Entites\" />
-		<Folder Include="wwwroot\js\Dashboard\" />
+		<Folder Include="Middlewares\" />
 	</ItemGroup>
 		<ItemGroup>
 		<ProjectReference Include="..\Library\Library.csproj" />

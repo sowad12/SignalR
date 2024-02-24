@@ -1,23 +1,30 @@
-﻿using Main.Manager.Implementation;
+﻿using System;
+using System.Threading.Tasks;
+using Library.Model.ViewModel;
 using Main.Manager.Interface;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 
 namespace Main.Hubs
 {
-    public class DashboardHub:Hub
+    public class DashboardHub : Hub
     {
-        private readonly IProductManager _productManager;
-        public DashboardHub(IProductManager productManager)
-        {
+        
 
-            _productManager = productManager;
-        }
-        public async Task SendProducts()
+        public async Task SendProducts(List<Product> products)
         {
-            var products=_productManager.GetAllProducts();
-            await Clients.All.SendAsync("ReceiveProducts", products);
+            try
+            {              
+                await Clients.All.SendAsync("ReceiveProducts", products);
+            }
 
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error sending products: " + ex.Message);
+            }
         }
+
+
     }
-
 }

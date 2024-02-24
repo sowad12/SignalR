@@ -8,20 +8,19 @@ namespace Main.Controllers
     public class DashboardController : Controller
     {
         private readonly IProductManager _productManager;
-     
-        public DashboardController(IProductManager productManager)
+        private readonly DashboardHub _dashboardHub;
+        public DashboardController(IProductManager productManager, DashboardHub dashboardHub)
         {
-            _productManager= productManager;
-         
+            _productManager = productManager;
+            _dashboardHub = dashboardHub;
         }
+        [HttpGet]
         public IActionResult Index()
         {
-            //var model = new ProductViewModel();
-            //var data= _productManager.GetAllProducts();
-            //_dashboardHub.
-            ////model.Products = data;
-            //return View(model);
-            return View();
+             var products = _productManager.GetAllProducts();
+            ProductViewModel viewModel = new ProductViewModel();
+            viewModel.Products = products;         
+            return View(viewModel);
         }
     }
 }

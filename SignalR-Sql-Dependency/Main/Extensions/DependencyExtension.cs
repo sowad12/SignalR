@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Main.Manager.Interface;
 using Main.Manager.Implementation;
+using Main.Hubs;
+using Main.SqlTableDependency;
+using TableDependency.SqlClient;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Main.Extensions
 {
@@ -18,6 +22,24 @@ namespace Main.Extensions
             try
             {
                 services.AddSignalR();
+                //services.AddSingleton<HubConnection>(provider =>
+                //{
+                //    var hubConnection = new HubConnectionBuilder()
+                //        .WithUrl("/dashboardHub")
+                //        .Build();
+                //    return hubConnection;
+                //});
+
+                services.AddCors(options =>
+                {
+                    options.AddPolicy("AllowAll",
+                        builder =>
+                        {
+                            builder.AllowAnyOrigin()
+                                   .AllowAnyMethod()
+                                   .AllowAnyHeader();
+                        });
+                });
                 //versioning dependency
                 var apiVersioningBuilder = services.AddApiVersioning(o =>
                 {
@@ -37,6 +59,11 @@ namespace Main.Extensions
 
                 services.AddScoped<ISystemManager, SystemManager>();
                 services.AddScoped<IProductManager, ProductManager>();
+                services.AddSingleton<DashboardHub>();
+                services.AddScoped<ProductTable>();
+             
+                //services.AddScoped<ISqlTableDependency, ProductTable>();
+
             }
             catch (Exception ex)
             {

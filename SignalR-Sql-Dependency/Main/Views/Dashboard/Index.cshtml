@@ -1,10 +1,38 @@
-﻿
+﻿@model Library.Model.ViewModel.ProductViewModel;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="x_content">
+    <table class="table table-hover" id="tblProduct">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i= 0;i < Model.Products.Count;i++)
+            {
 
-<div id="DivDashboard">
-    @Html.Partial("_Index")
+                <tr>
+                    <td>@Html.Raw(i+1)</td>
+                    <td>@Html.Raw(Model.Products[i].Name)</td>
+                    <td>@Html.Raw(Model.Products[i].Category)</td>
+                    <td>@Html.Raw(Model.Products[i].Price)</td>
+
+                </tr>
+            }
+           
+        </tbody>
+    </table>
 </div>
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/Dashboard.js"></script>
+}
+
